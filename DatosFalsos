@@ -1,0 +1,70 @@
+Sub GenerarDatosFalsos()
+    Dim num_datos As Integer
+    Dim i As Integer
+    Dim ws As Worksheet
+    
+    ' Número de datos falsos a generar
+    num_datos = 100
+    
+    ' Configurar la hoja de trabajo
+    Set ws = ThisWorkbook.Sheets("DatosFalsos")
+    ws.Cells.Clear
+    
+    ' Establecer encabezados de columna
+    ws.Cells(1, 1).Value = "Nombre"
+    ws.Cells(1, 2).Value = "Dirección"
+    ws.Cells(1, 3).Value = "Email"
+    ws.Cells(1, 4).Value = "Teléfono"
+    ws.Cells(1, 5).Value = "Empresa"
+    ws.Cells(1, 6).Value = "Fecha de Nacimiento"
+    ws.Cells(1, 7).Value = "Ocupación"
+    
+    ' Generar datos falsos
+    For i = 2 To num_datos + 1
+        ws.Cells(i, 1).Value = GenerarNombre()
+        ws.Cells(i, 2).Value = GenerarDireccion()
+        ws.Cells(i, 3).Value = GenerarEmail()
+        ws.Cells(i, 4).Value = GenerarTelefono()
+        ws.Cells(i, 5).Value = GenerarEmpresa()
+        ws.Cells(i, 6).Value = GenerarFechaNacimiento()
+        ws.Cells(i, 7).Value = GenerarOcupacion()
+    Next i
+End Sub
+
+Function GenerarNombre() As String
+    Dim nombres As Variant
+    nombres = Array("Juan Pérez", "Ana García", "Luis Martínez", "María Rodríguez", "Carlos López")
+    GenerarNombre = nombres(Application.WorksheetFunction.RandBetween(0, UBound(nombres)))
+End Function
+
+Function GenerarDireccion() As String
+    Dim direcciones As Variant
+    direcciones = Array("123 Calle Falsa", "456 Avenida Siempreviva", "789 Camino Real", "101 Calle Principal")
+    GenerarDireccion = direcciones(Application.WorksheetFunction.RandBetween(0, UBound(direcciones)))
+End Function
+
+Function GenerarEmail() As String
+    Dim dominios As Variant
+    dominios = Array("@gmail.com", "@hotmail.com", "@yahoo.com")
+    GenerarEmail = "usuario" & Application.WorksheetFunction.RandBetween(1, 1000) & dominios(Application.WorksheetFunction.RandBetween(0, UBound(dominios)))
+End Function
+
+Function GenerarTelefono() As String
+    GenerarTelefono = "+34 6" & Application.WorksheetFunction.RandBetween(10000000, 99999999)
+End Function
+
+Function GenerarEmpresa() As String
+    Dim empresas As Variant
+    empresas = Array("Empresa ABC", "Compañía XYZ", "Negocios S.A.", "Servicios Globales")
+    GenerarEmpresa = empresas(Application.WorksheetFunction.RandBetween(0, UBound(empresas)))
+End Function
+
+Function GenerarFechaNacimiento() As String
+    GenerarFechaNacimiento = Format(Application.WorksheetFunction.RandBetween(DateSerial(1960, 1, 1), DateSerial(2000, 12, 31)), "dd/mm/yyyy")
+End Function
+
+Function GenerarOcupacion() As String
+    Dim ocupaciones As Variant
+    ocupaciones = Array("Ingeniero", "Doctor", "Abogado", "Profesor", "Diseñador")
+    GenerarOcupacion = ocupaciones(Application.WorksheetFunction.RandBetween(0, UBound(ocupaciones)))
+End Function
